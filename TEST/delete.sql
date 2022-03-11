@@ -1,0 +1,205 @@
+DROP TABLE EMP01 ;
+
+CREATE TABLE emp01
+AS 
+SELECT * FROM EMPLOYEES e ;
+
+SELECT * FROM EMP01 e ;
+
+-- 사원들의 부선번호를 40번으로 변경한다.
+UPDATE EMP01 
+SET DEPARTMENT_ID = 40;
+
+SELECT * FROM EMP01 e ;
+
+-- 사원들의 입사일을 오늘로 변경
+UPDATE EMP01 
+SET HIRE_DATE = SYSDATE ;
+
+SELECT * FROM EMP01 e ;
+
+-- 사원들의 직무를 개발자로 변경
+UPDATE EMP01 
+SET JOB_ID = 'developer';
+
+SELECT * FROM EMP01 e ;
+
+
+DROP TABLE EMP01 ;
+
+CREATE TABLE EMP01 
+AS 
+SELECT * FROM EMPLOYEES e ;
+
+SELECT * FROM EMP01 e ;
+
+-- 사원들의 부서번호를 40, 입사일을 오늘, 직무를 개발자로 변경한다.
+UPDATE EMP01 
+SET DEPARTMENT_ID = 40, HIRE_DATE = SYSDATE , JOB_ID = 'developer';
+
+SELECT * FROM EMP01 e ;
+
+DROP TABLE EMP01 ;
+
+CREATE TABLE emp01
+as
+SELECT * FROM EMPLOYEES e ;
+
+-- 10번 부서에 근무하고 있는 사워들을 40번 부서로 수정한다.
+UPDATE EMP01 
+SET DEPARTMENT_ID = 40
+WHERE DEPARTMENT_ID = 50;
+
+SELECT * FROM EMP01 e ;
+
+-- IT_PROG 들의 입사일을 오늘 , 커미션을 2000으로 수정한다.
+UPDATE EMP01  
+SET HIRE_DATE = SYSDATE , COMMISSION_PCT = 0.9
+WHERE JOB_ID = 'IT_PROG';
+
+SELECT * FROM EMP01 e ;
+
+-- 전체 사원의 평균 급여보다 늦은 사원들의 급여를 50% 인상한다.
+UPDATE EMP01 
+SET SALARY = SALARY * 1.5
+WHERE SALARY < (SELECT AVG(SALARY) 
+				FROM EMP01 e2 );
+
+SELECT * FROM EMP01 e ;
+
+-- IT_PROG 사원들의 직무를 developer 로 변경한다.
+UPDATE EMP01 
+SET JOB_ID = 'developer'
+WHERE JOB_ID = 'IT_PROG';
+
+SELECT * FROM EMP01 e ;
+
+-- 30번 부서에 근무하고 잇는 사원들의 급여를 전체 평균 급여로 설정한다.
+UPDATE EMP01 
+SET SALARY = (SELECT TRUNC(AVG(SALARY)) 
+			  FROM EMP01 e )
+WHERE DEPARTMENT_ID = 40 ;
+
+SELECT * FROM EMP01 e ;
+-----------------------------------------------------------
+DROP TABLE EMP01 ;
+
+CREATE TABLE EMP01 
+AS 
+SELECT * FROM EMPLOYEES e ;
+
+SELECT * FROM EMP01 e ;
+
+--직무가 clerk 인 사원들의 직무와 급여액을 20번 부서에 근무하고 있는 사원 중
+--급여 최고액을 받는 사원의 직무와 급여액으로 변경한다.
+UPDATE EMP01 
+SET JOB_ID = (SELECT JOB_ID  
+				FROM EMP01 e2 
+				WHERE SALARY = (SELECT MAX(SALARY) 
+				FROM EMP01 e2)),
+	SALARY = (SELECT SALARY 
+				FROM EMP01 e2 
+				WHERE SALARY = (SELECT MAX(SALARY) 
+				FROM EMP01 e2))
+WHERE JOB_ID = 'IT_PROG';
+
+UPDATE EMP01 
+SET (JOB_ID,SALARY) = (SELECT JOB_ID , SALARY 
+						FROM EMP01 e2 
+						WHERE SALARY = (SELECT MAX(SALARY) 
+						FROM EMP01 e2))
+WHERE JOB_ID = 'IT_PROG';
+
+
+SELECT * FROM EMP01 e ;
+
+---------------------------------------------
+DROP TABLE EMP01 ;
+
+CREATE TABLE EMP01 
+AS 
+SELECT * FROM EMPLOYEES e ;
+
+SELECT * FROM EMP01 e ;
+
+DELETE FROM EMP01 e ;
+
+SELECT * FROM EMP01 e ;
+
+DELETE FROM EMP01 e 
+WHERE EMPLOYEE_ID = 100;
+
+SELECT * FROM EMP01 e ;
+
+-- 사원의 급여가 평균 급여 이하인 사원의 정보를 삭제한다.
+DELETE FROM EMP01 e 
+WHERE SALARY <= (SELECT AVG(SALARY) 
+				FROM EMP01 e);
+
+SELECT * FROM EMP01 e ;
+			
+SELECT AVG(SALARY) 
+FROM EMP01 e ;
+
+--커미션을 받지 않는 사원들의 정보를 삭제한다.
+DELETE FROM EMP01 e2 
+WHERE COMMISSION_PCT is NULL;
+
+SELECT * FROM EMP01 e ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
